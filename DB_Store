@@ -1,0 +1,65 @@
+CREATE DATABASE LSTORE;
+USE lstore;
+
+CREATE TABLE dim_clients (
+	id_client int (10),
+	id_type varchar(30),
+	client_name varchar(50),
+	client_lastname varchar(50),
+	client_address varchar(200),
+	client_city varchar(100),
+	PRIMARY KEY (id_client)
+	);
+    
+CREATE TABLE dim_store(
+	id_store int (10),
+    address_store varchar (200),
+    city_store varchar (50),
+    tel_store int (10),
+    PRIMARY KEY (id_store)
+    );
+    
+CREATE TABLE dim_medicine(
+	id_med int (10),
+    name_med varchar (20),
+    price_med numeric,
+    restrictive_med boolean,
+    gr_med numeric,
+    usemode_med varchar (50),
+    PRIMARY KEY (id_med)
+    );
+
+CREATE TABLE dim_date(
+	id_date numeric,
+    day_date numeric,
+    month_date numeric,
+    year_date numeric,
+    PRIMARY KEY (id_date)
+    );
+    
+
+CREATE TABLE dim_shifts(
+	id_shifts numeric,
+	weekday_shifts varchar (10),
+    holiday_shifts boolean,
+    shift varchar (20),
+    PRIMARY KEY (id_shifts)
+    );
+    
+    
+CREATE TABLE fact_sales(
+	id_sale numeric,
+	id_client int,
+	id_store int,
+	id_med int,
+	id_date numeric,
+	id_shifts numeric,
+    value_shifts numeric,
+	PRIMARY KEY (id_sale),
+    FOREIGN KEY(id_client) REFERENCES dim_clients(id_client),
+    FOREIGN KEY(id_store) REFERENCES dim_store(id_store),
+    FOREIGN KEY(id_med) REFERENCES dim_medicine(id_med),
+    FOREIGN KEY(id_date) REFERENCES dim_date(id_date),
+    FOREIGN KEY(id_shifts) REFERENCES dim_shifts(id_shifts)
+    );
+    
